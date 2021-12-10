@@ -30,7 +30,7 @@ A highly customizable stake pool smart contract for easy use across EVM chains
 
 ## Documentation
 
-You can vist the docs once to learn more about this contract.
+Coming soon...
 
 
 
