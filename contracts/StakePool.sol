@@ -3,7 +3,7 @@ pragma solidity 0.8.7;
 
 import "./ReentrancyGuard.sol";
 import "./SafeMath.sol";
-import "./SafeBEP20.sol";
+import "./SafeEIP20.sol";
 import "./Ownable.sol";
 import "./Pausable.sol";
 import "./Lockable.sol";
@@ -15,7 +15,7 @@ import "./Lockable.sol";
 contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
 
     using SafeMath for uint256;
-    using SafeBEP20 for IBEP20;
+    using SafeEIP20 for IEIP20;
 
     // We usually require to know who are all the stakeholders.
     address[] internal stakeholders;
@@ -126,7 +126,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
             _totalSupply = _totalSupply.add(amount);
             _balances[_msgSender()] = _balances[_msgSender()].add(amount);
 
-            IBEP20(pool.staking_token).safeTransferFrom(_msgSender(), address(this), amount);
+            IEIP20(pool.staking_token).safeTransferFrom(_msgSender(), address(this), amount);
 
             addStakeholder(_msgSender());
 
@@ -169,7 +169,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
             _totalSupply = _totalSupply.add(amount);
             _balances[_msgSender()] = _balances[_msgSender()].add(amount);
 
-            IBEP20(pool.staking_token).safeTransferFrom(_msgSender(), address(this), amount);
+            IEIP20(pool.staking_token).safeTransferFrom(_msgSender(), address(this), amount);
 
             stake.amount = stake.amount.add(amount);
             stake.updated_at = currentTimestamp;
@@ -211,7 +211,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
         _totalSupply = _totalSupply.sub(amount);
         _balances[_msgSender()] = _balances[_msgSender()].sub(amount);
 
-        IBEP20(pool.staking_token).safeTransfer(_msgSender(), amount);
+        IEIP20(pool.staking_token).safeTransfer(_msgSender(), amount);
 
         emit Withdrawn(_msgSender(), amount, stake.pool);
     }
@@ -550,7 +550,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
 
         if (_reward > 0) {
 
-            IBEP20(pool.reward_token).safeTransfer(_msgSender(), _reward);
+            IEIP20(pool.reward_token).safeTransfer(_msgSender(), _reward);
             stake.reward = 0; //reset amount
             stake.reward_count = 0; //reset count
             stake.reward_last_withdraw_at = currentTimestamp;
@@ -608,7 +608,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
 
         if (_bonus > 0) {
 
-            IBEP20(pool.bonus_token).safeTransfer(_msgSender(), _bonus);
+            IEIP20(pool.bonus_token).safeTransfer(_msgSender(), _bonus);
             stake.bonus = 0; //reset amount
             stake.bonus_last_withdraw_at = currentTimestamp;
             stake.bonus_paid = stake.bonus_paid.add(_bonus);
@@ -743,7 +743,7 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
                 _totalSupply = _totalSupply.sub(_stake);
                 _balances[_stakeholder] = _balances[_stakeholder].sub(_stake);
 
-                IBEP20(pool.staking_token).safeTransfer(_stakeholder, _stake);
+                IEIP20(pool.staking_token).safeTransfer(_stakeholder, _stake);
 
             }
 
@@ -813,16 +813,16 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
 
     
     function transferToken(address token, address to, uint256 amount) public onlyOwner {
-        uint256 bep20balance = IBEP20(token).balanceOf(address(this));
-        require(amount <= bep20balance, "balance is low");
-        IBEP20(token).safeTransfer(to, amount);
+        uint256 EIP20balance = IEIP20(token).balanceOf(address(this));
+        require(amount <= EIP20balance, "balance is low");
+        IEIP20(token).safeTransfer(to, amount);
         emit TransferSent(_msgSender(), to, amount);
     }    
 
 
 
     function balanceOfToken(address token) public view returns (uint256) {
-        uint256 tokenBal = IBEP20(token).balanceOf(address(this));
+        uint256 tokenBal = IEIP20(token).balanceOf(address(this));
         return tokenBal;
     }
 

@@ -2,10 +2,10 @@ pragma solidity 0.8.7;
 // SPDX-License-Identifier: MIT
 
 /**
- * @title BEP20 interface
+ * @title EIP20 interface
  * @dev see https://github.com/ethereum/EIPs/issues/20
  */
-interface IBEP20 {
+interface IEIP20 {
 
   function totalSupply() external view returns (uint256);
 

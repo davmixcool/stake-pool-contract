@@ -1,17 +1,17 @@
 pragma solidity 0.8.7;
 // SPDX-License-Identifier: MIT
 
-import "./IBEP20.sol";
+import "./IEIP20.sol";
 import "./SafeMath.sol";
 
 /**
- * @title Standard BEP20 token
+ * @title Standard EIP20 token
  *
  * @dev Implementation of the basic standard token.
  * https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
  * Originally based on code by FirstBlood: https://github.com/Firstbloodio/token/blob/master/smart_contract/FirstBloodToken.sol
  */
-contract BEP20 is IBEP20 {
+contract EIP20 is IEIP20 {
   using SafeMath for uint256;
 
   mapping (address => uint256) private _balances;

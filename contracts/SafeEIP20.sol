@@ -1,18 +1,18 @@
 pragma solidity 0.8.7;
 // SPDX-License-Identifier: MIT
 
-import "./BEP20.sol";
-import "./IBEP20.sol";
+import "./EIP20.sol";
+import "./IEIP20.sol";
 
 /**
- * @title SafeBEP20
- * @dev Wrappers around BEP20 operations that throw on failure.
- * To use this library you can add a `using SafeBEP20 for BEP20;` statement to your contract,
+ * @title SafeEIP20
+ * @dev Wrappers around EIP20 operations that throw on failure.
+ * To use this library you can add a `using SafeEIP20 for EIP20;` statement to your contract,
  * which allows you to call the safe operations as `token.safeTransfer(...)`, etc.
  */
-library SafeBEP20 {
+library SafeEIP20 {
   function safeTransfer(
-    IBEP20 token,
+    IEIP20 token,
     address to,
     uint256 value
   )
@@ -22,7 +22,7 @@ library SafeBEP20 {
   }
 
   function safeTransferFrom(
-    IBEP20 token,
+    IEIP20 token,
     address from,
     address to,
     uint256 value
@@ -33,7 +33,7 @@ library SafeBEP20 {
   }
 
   function safeApprove(
-    IBEP20 token,
+    IEIP20 token,
     address spender,
     uint256 value
   )
