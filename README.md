@@ -21,9 +21,9 @@ A highly customizable stake pool smart contract for easy use across EVM chains
 * Daily Reward Distribution
 * Weekly Reward Distribution
 * Total Reward Distribution
-* Withdraw Bonus From Contract Bonus Token Liquidity
-* Withdraw Reward From Contract Reward Token Liquidity
-* Withdraw Stake From Contract Stake Token Liquidity
+* Withdraw Bonus From Bonus Token Liquidity
+* Withdraw Reward From Reward Token Liquidity
+* Withdraw Stake From Stake Token Liquidity
 * And Lots More........
 
 
