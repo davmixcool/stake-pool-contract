@@ -144,19 +144,18 @@ contract StakePool is Ownable, Pausable, Lockable, ReentrancyGuard  {
             stake.bonus = stake.bonus.add(0);
 
 
+            address _referral_address = pool.default_referral;
              //check if the referral is a stakeholder and also if _msgSender is not the referral
             (bool _isReferralStakeholder,) = isStakeholder(_affiliate);
             if (_isReferralStakeholder && _msgSender() != _affiliate){
-                address _referral_address = _affiliate;
-            }else{
-                address _referral_address = pool.default_referral;
-            } 
+                _referral_address = _affiliate;
+            }
 
             uint256 referral_bonus = amount / (100 * (10 ** 18));
             uint256 affiliate_bonus = referral_bonus.mul(pool.referral_bonus_percentage);
+            stake.referral = _referral_address;
             Stake storage referral_stake = stakes[_referral_address];
             referral_stake.bonus = referral_stake.bonus.add(affiliate_bonus);
-            stake.referral = _referral_address;
 
             emit Staked(_msgSender(), amount, pool.name);
             
